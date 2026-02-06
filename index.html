@@ -4,37 +4,22 @@
 <meta charset="UTF-8">
 <title>العد التنازلي لرمضان</title>
 <style>
-/* الخلفية المتدرجة والفاخرة */
+/* الخلفية المتدرجة */
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-    text-align: center;
+    font-family: Arial, sans-serif;
     background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
     height: 100vh;
     overflow: hidden;
+    color: #fff;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
 
-/* زخارف متحركة بالـ CSS */
-.star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #fff;
-    border-radius: 50%;
-    animation: twinkle 3s infinite;
-}
-
-@keyframes twinkle {
-    0%, 100% {opacity: 1;}
-    50% {opacity: 0.2;}
-}
-
-/* العنوان */
+/* العنوان الكبير */
 h1 {
     font-size: 50px;
     font-weight: bold;
@@ -46,16 +31,16 @@ h1 {
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
+    z-index: 1;
 }
 
 .box {
     background: rgba(255, 255, 255, 0.1);
     padding: 25px 35px;
     border-radius: 20px;
-    min-width: 110px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
-    font-weight: bold;
+    min-width: 100px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
 .box span {
@@ -66,7 +51,22 @@ h1 {
     text-shadow: 1px 1px 5px #000;
 }
 
-/* تأثير فوانيس مرسومة بالـ CSS */
+/* النجوم */
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.2;}
+}
+
+/* فوانيس CSS */
 .lantern {
     position: absolute;
     width: 20px;
@@ -101,7 +101,7 @@ h1 {
     <div class="box"><span id="seconds">0</span> ثواني</div>
 </div>
 
-<!-- زخارف النجوم -->
+<!-- بعض النجوم -->
 <div class="star" style="top:20px; left:10%; width:4px; height:4px;"></div>
 <div class="star" style="top:100px; left:70%; width:3px; height:3px;"></div>
 <div class="star" style="top:200px; left:40%; width:2px; height:2px;"></div>

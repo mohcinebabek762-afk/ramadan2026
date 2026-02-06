@@ -21,13 +21,11 @@
     text-align: center;
   }
 
-  /* العنوان */
   h1 {
     font-size: 3em;
     margin-bottom: 20px;
   }
 
-  /* العدّ */
   .countdown {
     display: flex;
     gap: 20px;
@@ -40,6 +38,12 @@
     padding: 15px 20px;
     border-radius: 15px;
     min-width: 80px;
+    transition: transform 0.2s ease;
+  }
+
+  /* تأثير عند تغير الرقم */
+  .time-box.changed {
+    transform: scale(1.2);
   }
 
   /* الهلال المتحرك */
@@ -61,20 +65,6 @@
     100% { transform: translateY(0); }
   }
 
-  /* زر الصوت */
-  #soundToggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: rgba(255,255,255,0.08);
-    border: none;
-    color: #E6C46A;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
   /* Responsive */
   @media(max-width: 500px){
     h1 { font-size: 2em; }
@@ -88,28 +78,28 @@
 <h1>اقترب رمضان 🌙</h1>
 
 <div class="countdown">
-  <div class="time-box"><span id="days">0</span><br>أيام</div>
-  <div class="time-box"><span id="hours">0</span><br>ساعات</div>
-  <div class="time-box"><span id="minutes">0</span><br>دقائق</div>
-  <div class="time-box"><span id="seconds">0</span><br>ثواني</div>
+  <div class="time-box" id="daysBox"><span id="days">0</span><br>أيام</div>
+  <div class="time-box" id="hoursBox"><span id="hours">0</span><br>ساعات</div>
+  <div class="time-box" id="minutesBox"><span id="minutes">0</span><br>دقائق</div>
+  <div class="time-box" id="secondsBox"><span id="seconds">0</span><br>ثواني</div>
 </div>
 
 <div class="moon"></div>
 
-<!-- الصوت -->
-<audio id="ramadanSound" loop>
-  <source src="audio/ramadan.mp3" type="audio/mpeg">
-</audio>
-<button id="soundToggle">🔊</button>
-
 <script>
-  // التاريخ المستهدف لرمضان
   const targetDate = new Date("2026-02-20T00:00:00").getTime();
 
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
   const minutesEl = document.getElementById("minutes");
   const secondsEl = document.getElementById("seconds");
+
+  const daysBox = document.getElementById("daysBox");
+  const hoursBox = document.getElementById("hoursBox");
+  const minutesBox = document.getElementById("minutesBox");
+  const secondsBox = document.getElementById("secondsBox");
+
+  let last = {};
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -129,31 +119,36 @@
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    daysEl.innerText = days;
-    hoursEl.innerText = hours;
-    minutesEl.innerText = minutes;
-    secondsEl.innerText = seconds;
+    // تحديث الأرقام مع تأثير
+    if(last.days !== days){
+      daysEl.innerText = days;
+      animateBox(daysBox);
+      last.days = days;
+    }
+    if(last.hours !== hours){
+      hoursEl.innerText = hours;
+      animateBox(hoursBox);
+      last.hours = hours;
+    }
+    if(last.minutes !== minutes){
+      minutesEl.innerText = minutes;
+      animateBox(minutesBox);
+      last.minutes = minutes;
+    }
+    if(last.seconds !== seconds){
+      secondsEl.innerText = seconds;
+      animateBox(secondsBox);
+      last.seconds = seconds;
+    }
+  }
+
+  function animateBox(box){
+    box.classList.add("changed");
+    setTimeout(() => box.classList.remove("changed"), 200);
   }
 
   const countdownInterval = setInterval(updateCountdown, 1000);
   updateCountdown();
-
-  // الصوت
-  const audio = document.getElementById("ramadanSound");
-  const btn = document.getElementById("soundToggle");
-  let playing = false;
-
-  btn.addEventListener("click", () => {
-    if (!playing) {
-      audio.volume = 0.15; // صوت خفيف جداً
-      audio.play();
-      btn.textContent = "🔇";
-    } else {
-      audio.pause();
-      btn.textContent = "🔊";
-    }
-    playing = !playing;
-  });
 </script>
 
 </body>

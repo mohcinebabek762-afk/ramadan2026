@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>العد التنازلي لرمضان 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <p class="small">بداية رمضان</p>
+    <p class="hijri">1 رمضان 1447 هـ</p>
+    <h2>الأربعاء، 18 فيفري 2026</h2>
+  </div>
+
+  <div class="circle-box">
+    <svg width="220" height="220">
+      <circle cx="110" cy="110" r="100"></circle>
+      <circle cx="110" cy="110" r="100" id="progress"></circle>
+    </svg>
+    <div class="circle-text">
+      <p>الوقت المتبقي</p>
+      <h3 id="daysMain">11 يوم</h3>
+      <span id="percent">97%</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="box"><span id="hours">03</span><p>الساعات</p></div>
+    <div class="box"><span id="days">11</span><p>الأيام</p></div>
+    <div class="box"><span id="seconds">43</span><p>الثواني</p></div>
+    <div class="box"><span id="minutes">04</span><p>الدقائق</p></div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

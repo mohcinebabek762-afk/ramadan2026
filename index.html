@@ -1,0 +1,82 @@
+index.html
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>العد التنازلي لرمضان</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding-top: 100px;
+}
+h1 {
+    font-size: 35px;
+    margin-bottom: 40px;
+}
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 25px;
+}
+.box {
+    background: rgba(255,255,255,0.15);
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+.box span {
+    display: block;
+    font-size: 40px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<h1>🌙 العد التنازلي لشهر رمضان 🌙</h1>
+
+<div class="countdown">
+    <div class="box">
+        <span id="days">0</span> أيام
+    </div>
+    <div class="box">
+        <span id="hours">0</span> ساعات
+    </div>
+    <div class="box">
+        <span id="minutes">0</span> دقائق
+    </div>
+    <div class="box">
+        <span id="seconds">0</span> ثواني
+    </div>
+</div>
+
+<script>
+const ramadanDate = new Date("2026-02-18T00:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = ramadanDate - now;
+
+    if(diff <= 0){
+        document.body.innerHTML = "<h1>🌙 رمضان مبارك 🌙</h1>";
+        return;
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+
+}, 1000);
+</script>
+
+</body>
+</html>

@@ -3,153 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عدّ تنازلي لرمضان</title>
+<title>العد التنازلي لشهر رمضان</title>
 <style>
-  /* الخلفية الداكنة الفاخرة */
   body {
     margin: 0;
     padding: 0;
     font-family: 'Tajawal', sans-serif;
-    background: linear-gradient(180deg, #0B1F2A, #102E3A);
-    color: #E6C46A;
+    background: #1E2A38; /* خلفية داكنة فخمة */
+    color: #E6C46A; /* لون ذهبي للنصوص */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
     text-align: center;
   }
 
   h1 {
-    font-size: 3em;
+    font-size: 2em;
     margin-bottom: 20px;
   }
 
   .countdown {
     display: flex;
-    gap: 20px;
-    font-size: 2.5em;
-    font-weight: bold;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
   }
 
   .time-box {
     background: rgba(255, 255, 255, 0.05);
     padding: 15px 20px;
-    border-radius: 15px;
-    min-width: 80px;
-    transition: transform 0.2s ease;
+    border-radius: 10px;
+    min-width: 70px;
   }
 
-  /* تأثير عند تغير الرقم */
-  .time-box.changed {
-    transform: scale(1.2);
+  .time-box span {
+    font-size: 1.8em;
+    font-weight: bold;
   }
 
-  /* الهلال المتحرك */
-  .moon {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle at 30% 30%, #E6C46A, transparent 70%);
-    border-radius: 50%;
-    animation: floatMoon 6s ease-in-out infinite;
-    opacity: 0.8;
+  .dua-box {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 15px 25px;
+    border-radius: 10px;
+    max-width: 350px;
   }
 
-  @keyframes floatMoon {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
-  }
-
-  /* Responsive */
-  @media(max-width: 500px){
-    h1 { font-size: 2em; }
-    .countdown { flex-direction: column; font-size: 2em; gap: 10px; }
-    .moon { width: 60px; height: 60px; top: 30px; right: 30px; }
+  @media(max-width:500px){
+    .countdown { flex-direction: column; gap: 10px; }
+    .time-box span { font-size: 1.5em; }
   }
 </style>
 </head>
 <body>
 
-<h1>اقترب رمضان 🌙</h1>
+<h1>🌙 العد التنازلي لشهر رمضان</h1>
 
 <div class="countdown">
-  <div class="time-box" id="daysBox"><span id="days">0</span><br>أيام</div>
-  <div class="time-box" id="hoursBox"><span id="hours">0</span><br>ساعات</div>
-  <div class="time-box" id="minutesBox"><span id="minutes">0</span><br>دقائق</div>
-  <div class="time-box" id="secondsBox"><span id="seconds">0</span><br>ثواني</div>
+  <div class="time-box"><span id="days">11</span><br>أيام</div>
+  <div class="time-box"><span id="hours">7</span><br>ساعات</div>
+  <div class="time-box"><span id="minutes">47</span><br>دقائق</div>
+  <div class="time-box"><span id="seconds">18</span><br>ثواني</div>
 </div>
 
-<div class="moon"></div>
-
-<script>
-  const targetDate = new Date("2026-02-20T00:00:00").getTime();
-
-  const daysEl = document.getElementById("days");
-  const hoursEl = document.getElementById("hours");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
-
-  const daysBox = document.getElementById("daysBox");
-  const hoursBox = document.getElementById("hoursBox");
-  const minutesBox = document.getElementById("minutesBox");
-  const secondsBox = document.getElementById("secondsBox");
-
-  let last = {};
-
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = targetDate - now;
-
-    if(diff <= 0){
-      daysEl.innerText = 0;
-      hoursEl.innerText = 0;
-      minutesEl.innerText = 0;
-      secondsEl.innerText = 0;
-      clearInterval(countdownInterval);
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    // تحديث الأرقام مع تأثير
-    if(last.days !== days){
-      daysEl.innerText = days;
-      animateBox(daysBox);
-      last.days = days;
-    }
-    if(last.hours !== hours){
-      hoursEl.innerText = hours;
-      animateBox(hoursBox);
-      last.hours = hours;
-    }
-    if(last.minutes !== minutes){
-      minutesEl.innerText = minutes;
-      animateBox(minutesBox);
-      last.minutes = minutes;
-    }
-    if(last.seconds !== seconds){
-      secondsEl.innerText = seconds;
-      animateBox(secondsBox);
-      last.seconds = seconds;
-    }
-  }
-
-  function animateBox(box){
-    box.classList.add("changed");
-    setTimeout(() => box.classList.remove("changed"), 200);
-  }
-
-  const countdownInterval = setInterval(updateCountdown, 1000);
-  updateCountdown();
-</script>
+<div class="dua-box">
+  <strong>دعاء اليوم 🙏</strong><br>
+  اللهم اجعل القرآن ربيع قلوبنا
+</div>
 
 </body>
 </html>
